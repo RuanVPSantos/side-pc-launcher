@@ -18,6 +18,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     },
     config: {
         get: () => ipcRenderer.invoke('config:get'),
+        set: (config: any) => ipcRenderer.invoke('config:set', config),
         getPaths: () => ipcRenderer.invoke('config:getPaths'),
         openDir: () => ipcRenderer.invoke('config:openDir'),
     },

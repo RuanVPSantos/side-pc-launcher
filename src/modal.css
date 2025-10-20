@@ -39,7 +39,9 @@
     width: 90%;
     max-width: 600px;
     max-height: 80vh;
-    overflow-y: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
     box-shadow: 0 0 30px rgba(0, 217, 255, 0.5);
     animation: slideIn 0.3s ease;
 }
@@ -63,14 +65,16 @@
     padding: 15px 20px;
     border-bottom: 2px solid #00d9ff;
     background: rgba(0, 217, 255, 0.05);
+    flex-shrink: 0;
 }
 
-.modal-title {
+.modal-header h2 {
     font-size: 16px;
     color: #00d9ff;
     letter-spacing: 2px;
     font-weight: bold;
     margin: 0;
+    text-transform: uppercase;
 }
 
 .close-btn {
@@ -95,128 +99,178 @@
 
 .modal-body {
     padding: 20px;
+    overflow-y: auto;
+    flex: 1;
 }
 
 .settings-section {
     margin-bottom: 25px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-left: 3px solid #00d9ff;
+    border-right: 1px solid rgba(0, 217, 255, 0.2);
+    border-top: 1px solid rgba(0, 217, 255, 0.2);
+    border-bottom: 1px solid rgba(0, 217, 255, 0.2);
 }
 
-.section-title {
+.settings-section h3 {
     font-size: 12px;
     color: #00d9ff;
     letter-spacing: 2px;
-    margin-bottom: 15px;
+    margin: 0 0 15px 0;
     padding-bottom: 8px;
     border-bottom: 1px solid rgba(0, 217, 255, 0.3);
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
-.info-grid {
+.location-info {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
 }
 
-.info-item {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    padding: 10px;
+.location-info p {
+    margin: 0;
+    padding: 10px 10px 10px 12px;
     background: rgba(0, 217, 255, 0.05);
-    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-left: 2px solid #00d9ff;
+    border-right: 1px solid rgba(0, 217, 255, 0.2);
+    border-top: 1px solid rgba(0, 217, 255, 0.2);
+    border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+    font-size: 11px;
+    font-family: 'Courier New', monospace;
+    min-height: 50px;
 }
 
-.info-label {
-    font-size: 10px;
+.location-info strong {
     color: #00d9ff;
+    font-size: 9px;
     letter-spacing: 1px;
-}
-
-.info-value {
-    font-size: 13px;
-    color: #fff;
-    font-weight: bold;
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    display: block;
+    margin-bottom: 5px;
+    text-transform: uppercase;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    margin-bottom: 15px;
 }
 
-.form-group.full-width {
-    grid-column: 1 / -1;
-}
-
-.form-label {
+.form-group label {
     font-size: 10px;
     color: #00d9ff;
     letter-spacing: 1px;
     font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
 }
 
-.form-input {
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid #00d9ff;
+.form-group label::before {
+    content: '▸';
+    color: #ff0064;
+    font-size: 12px;
+}
+
+.form-group input {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid rgba(0, 217, 255, 0.3);
     color: #fff;
-    padding: 10px;
+    padding: 12px 15px;
     font-size: 13px;
     font-family: 'Courier New', monospace;
     transition: all 0.3s;
 }
 
-.form-input:focus {
+.form-group input:focus {
     outline: none;
-    border-color: #00ffff;
-    box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+    border-color: #00d9ff;
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.4), inset 0 0 10px rgba(0, 217, 255, 0.1);
     background: rgba(0, 217, 255, 0.05);
+    transform: translateX(3px);
 }
 
-.form-input::placeholder {
-    color: rgba(0, 217, 255, 0.4);
+.form-group input::placeholder {
+    color: rgba(0, 217, 255, 0.3);
+    font-style: italic;
 }
 
-.modal-actions {
+.modal-footer {
     display: flex;
     gap: 12px;
-    margin-top: 25px;
+    padding: 15px 20px;
+    border-top: 2px solid rgba(0, 217, 255, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
 }
 
-.action-btn {
+.btn {
     flex: 1;
-    padding: 12px;
-    font-size: 12px;
+    padding: 14px 20px;
+    font-size: 11px;
     font-weight: bold;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     cursor: pointer;
     transition: all 0.3s;
     font-family: 'Courier New', monospace;
     border: 2px solid #00d9ff;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
 }
 
-.action-btn.primary {
-    background: #00d9ff;
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #00d9ff, #00a8cc);
     color: #000;
+    border-color: #00d9ff;
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
 }
 
-.action-btn.primary:hover {
-    background: #00ffff;
-    box-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+.btn-primary:hover {
+    background: linear-gradient(135deg, #00ffff, #00d9ff);
+    box-shadow: 0 0 25px rgba(0, 217, 255, 0.6), 0 0 50px rgba(0, 217, 255, 0.3);
     transform: translateY(-2px);
+    border-color: #00ffff;
 }
 
-.action-btn.secondary {
-    background: transparent;
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.4);
+}
+
+.btn-secondary {
+    background: rgba(0, 0, 0, 0.5);
     color: #00d9ff;
+    border-color: #00d9ff;
 }
 
-.action-btn.secondary:hover {
+.btn-secondary:hover {
     background: rgba(0, 217, 255, 0.1);
     border-color: #00ffff;
     box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+    color: #00ffff;
+}
+
+.btn-secondary:active {
+    background: rgba(0, 217, 255, 0.2);
 }

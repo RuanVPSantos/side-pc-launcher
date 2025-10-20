@@ -37,6 +37,14 @@ button {
   cursor: pointer;
 }
 
+/* React root container */
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* App component - same as dashboard */
+.app,
 .dashboard {
   width: 100vw;
   height: 100vh;
@@ -45,6 +53,20 @@ button {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+/* React layout containers */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.center-panel {
+  flex: 1;
+  overflow: hidden;
 }
 
 /* ========================================
@@ -67,6 +89,8 @@ button {
       - Use .widget-tall para widgets maiores
 ======================================== */
 
+/* Support both old and new class names */
+.widgets-container,
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, 20em);
@@ -84,19 +108,23 @@ button {
 }
 
 /* Scrollbar */
+.widgets-container::-webkit-scrollbar,
 .grid-container::-webkit-scrollbar {
   display: none;
 }
 
+.widgets-container::-webkit-scrollbar-track,
 .grid-container::-webkit-scrollbar-track {
   background: transparent;
 }
 
+.widgets-container::-webkit-scrollbar-thumb,
 .grid-container::-webkit-scrollbar-thumb {
   background: #00d9ff;
   border-radius: 4px;
 }
 
+.widgets-container::-webkit-scrollbar-thumb:hover,
 .grid-container::-webkit-scrollbar-thumb:hover {
   background: #00b8d4;
 }

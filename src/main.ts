@@ -255,6 +255,31 @@ ipcMain.handle('config:get', async () => {
   }
 });
 
+// Save user configuration
+ipcMain.handle('config:set', async (_, newConfig: { latitude: string; longitude: string; city: string; country: string; carouselInterval?: number }) => {
+  try {
+    const configText = `# Launcher Configuration File
+# Edit this file to customize your launcher settings
+# Lines starting with # are comments
+
+# Location Settings (for weather and map)
+LATITUDE=${newConfig.latitude}
+LONGITUDE=${newConfig.longitude}
+CITY=${newConfig.city}
+COUNTRY=${newConfig.country || 'Brazil'}
+
+# Carousel Settings
+CAROUSEL_INTERVAL=${newConfig.carouselInterval || 10}
+`;
+    await writeFile(USER_CONFIG_FILE, configText);
+    console.log('[CONFIG] Configuration saved:', newConfig);
+    return { success: true };
+  } catch (error) {
+    console.error('[CONFIG] Error saving config:', error);
+    return { success: false, error: String(error) };
+  }
+});
+
 // Get config paths (for user reference)
 ipcMain.handle('config:getPaths', async () => {
   return {
