@@ -1,0 +1,12 @@
+# Launcher Configuration File
+# Edit this file to customize your launcher settings
+# Lines starting with # are comments
+
+# Location Settings (for weather)
+LATITUDE=-15.8288597
+LONGITUDE=-48.1306207
+CITY=Ceilândia
+COUNTRY=Brazil
+
+# Carousel Settings
+CAROUSEL_INTERVAL=10

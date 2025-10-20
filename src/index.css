@@ -1,0 +1,102 @@
+/* ========================================
+   LAUNCHER - BASE STYLES & GRID
+   ========================================
+   
+   Este arquivo contém apenas:
+   - Reset e estilos base
+   - Layout do dashboard
+   - Grid container e controle de tamanho
+   - Scrollbar
+   
+   Outros estilos estão em:
+   - header.css: Header e relógio
+   - widgets.css: Todos os widgets
+   - modal.css: Modal de configurações
+======================================== */
+
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Courier New', monospace;
+  background: transparent;
+  color: #00d9ff;
+  overflow: hidden;
+  -webkit-app-region: drag;
+}
+
+button {
+  -webkit-app-region: no-drag;
+  cursor: pointer;
+}
+
+.dashboard {
+  width: 100vw;
+  height: 100vh;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ========================================
+   GRID CONTAINER & WIDGET SIZING
+   ========================================
+   Para controlar o tamanho dos cards:
+   
+   1. Tamanho mínimo dos cards:
+      - Altere o valor 280px em minmax(280px, 1fr)
+      - Valores menores = mais cards por linha
+      - Valores maiores = menos cards por linha
+   
+   2. Tamanho específico de um widget:
+      - Adicione classes no HTML:
+        .widget-small, .widget-medium, .widget-tall
+        .widget-span-2, .widget-span-3
+   
+   3. Altura dos widgets:
+      - min-height: 200px (padrão em widgets.css)
+      - Use .widget-tall para widgets maiores
+======================================== */
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 20em);
+  /* largura fixa igual ao widget */
+  gap: 2rem;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-inline: 5px;
+  /* padding igual dos dois lados */
+  -webkit-app-region: no-drag;
+  align-content: start;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+/* Scrollbar */
+.grid-container::-webkit-scrollbar {
+  display: none;
+}
+
+.grid-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.grid-container::-webkit-scrollbar-thumb {
+  background: #00d9ff;
+  border-radius: 4px;
+}
+
+.grid-container::-webkit-scrollbar-thumb:hover {
+  background: #00b8d4;
+}
