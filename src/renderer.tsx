@@ -4,7 +4,8 @@
  */
 
 import { createRoot } from 'react-dom/client';
-import { App } from './App';
+import { App } from './presentation/App';
+import { theme } from './presentation/styles/theme';
 
 // Type definitions for Electron API
 declare global {
@@ -40,16 +41,44 @@ declare global {
 
 // Initialize React app
 function init() {
+  console.log('[REACT] Iniciando aplicação...');
+
+  // Debug: verificar se electronAPI está disponível
+  console.log('[DEBUG] Electron API disponível:', {
+    hasWindow: typeof window !== 'undefined',
+    hasElectronAPI: typeof window !== 'undefined' && !!window.electronAPI,
+    hasInvoke: typeof window !== 'undefined' && window.electronAPI && !!window.electronAPI.invoke
+  });
+
+  // Testar IPC
+  if (typeof window !== 'undefined' && window.electronAPI && window.electronAPI.invoke) {
+    console.log('[DEBUG] Testando IPC...');
+    window.electronAPI.invoke('db:projects:getAll')
+      .then(result => console.log('[DEBUG] IPC funcionando:', result))
+      .catch(error => console.error('[DEBUG] IPC erro:', error));
+  }
+
   const container = document.getElementById('root');
   if (!container) {
     console.error('[ERROR] Root element not found');
     return;
   }
 
-  const root = createRoot(container);
-  root.render(<App />);
-  
-  console.log('[REACT] App initialized successfully');
+  try {
+    // Initialize theme - theme object is loaded, CSS variables are handled by CSS files
+    console.log('[THEME] Tema carregado:', theme.colors.primary);
+
+    const root = createRoot(container);
+    root.render(<App />);
+
+    console.log('[REACT] App initialized successfully');
+  } catch (error) {
+    console.error('[ERROR] Erro na inicialização:', error);
+
+    // Fallback sem tema
+    const root = createRoot(container);
+    root.render(<App />);
+  }
 }
 
 // Wait for DOM to load

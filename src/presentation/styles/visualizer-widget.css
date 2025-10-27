@@ -1,0 +1,34 @@
+/* ========================================
+   VISUALIZER WIDGET
+   ======================================== */
+
+/* Visualizer Widget */
+.visualizer-widget .progress-bar {
+    height: 20px;
+    background: var(--bg-dark);
+    border: 1px solid var(--border-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.visualizer-widget .progress-fill {
+    height: 100%;
+    width: 40%;
+    background: var(--gradient-temperature);
+}
+
+.equalizer {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 80px;
+    gap: var(--spacing-sm);
+}
+
+.equalizer .bar {
+    flex: 1;
+    background: var(--gradient-equalizer);
+    transition: var(--transition-fast);
+    box-shadow: var(--shadow-primary);
+    min-height: 10%;
+}

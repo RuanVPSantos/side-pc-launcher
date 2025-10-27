@@ -1,0 +1,17 @@
+/* ========================================
+   WIDGETS STYLES - IMPORTS
+   ========================================
+   
+   Este arquivo agora importa todos os widgets individuais.
+   Cada widget tem seu próprio arquivo CSS para melhor organização.
+   ======================================== */
+
+@import url('./widgets-base.css');
+@import url('./weather-widget.css');
+@import url('./music-widget.css');
+@import url('./visualizer-widget.css');
+@import url('./shortcuts-widget.css');
+@import url('./map-widget.css');
+@import url('./matrix-widget.css');
+@import url('./schedule-widget.css');
+@import url('./notification-widget.css');

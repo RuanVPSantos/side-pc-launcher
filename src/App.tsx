@@ -1,51 +1,82 @@
 import { useState } from 'react';
-import { Header } from './components/Header';
-import { WeatherWidget } from './components/WeatherWidget';
-import { MusicWidget } from './components/MusicWidget';
-import { ShortcutsWidget } from './components/ShortcutsWidget';
-import { MapWidget } from './components/MapWidget';
-import { MatrixWidget } from './components/MatrixWidget';
-import { SettingsModal } from './components/SettingsModal';
+import { HomePage } from './presentation/pages/home/HomePage';
+import { ProjectsPage, NotificationsPage } from './presentation/pages';
+import { ProjectDetailPage } from './presentation/pages/project-detail/ProjectDetailPage';
+import { Navigation } from './presentation/components/common/Navigation';
+import { DatabaseProvider } from './presentation/components/DatabaseProvider';
 
-import './index.css';
-import './modal.css';
-import './widgets.css';
-import './header.css';
+import './presentation/styles/index.css';
+import './presentation/styles/app-animations.css';
 
 export function App() {
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null);
 
-  const handleSettingsOpen = () => {
-    setIsSettingsOpen(true);
+  const handlePageChange = (page: number) => {
+    if (page === currentPage) return;
+
+    setIsTransitioning(true);
+
+    setTimeout(() => {
+      setCurrentPage(page);
+      setIsTransitioning(false);
+    }, 150);
   };
 
-  const handleSettingsClose = () => {
-    setIsSettingsOpen(false);
-  };
-
-  const handleSettingsSave = () => {
-    // Force refresh of weather and map widgets
+  const handleRefresh = () => {
     setRefreshKey(prev => prev + 1);
   };
 
-  return (
-    <div className="dashboard">
-      <Header onSettingsClick={handleSettingsOpen} />
-      
-      <div className="grid-container" id="widgetsContainer">
-        <WeatherWidget key={`weather-${refreshKey}`} />
-        <MusicWidget />
-        <ShortcutsWidget />
-        <MapWidget key={`map-${refreshKey}`} />
-        <MatrixWidget />
-      </div>
+  const handleProjectSelect = (projectId: number) => {
+    setSelectedProjectId(projectId);
+  };
 
-      <SettingsModal
-        isOpen={isSettingsOpen}
-        onClose={handleSettingsClose}
-        onSave={handleSettingsSave}
-      />
-    </div>
+  const handleBackToProjects = () => {
+    setSelectedProjectId(null);
+  };
+
+  const renderCurrentPage = () => {
+    // Se um projeto está selecionado, mostrar detalhes
+    if (selectedProjectId !== null) {
+      return (
+        <ProjectDetailPage
+          projectId={selectedProjectId}
+          onBack={handleBackToProjects}
+        />
+      );
+    }
+
+    switch (currentPage) {
+      case 0:
+        return <HomePage refreshKey={refreshKey} onRefresh={handleRefresh} />;
+      case 1:
+        return <ProjectsPage onProjectSelect={handleProjectSelect} />;
+      case 2:
+        return <NotificationsPage />;
+      default:
+        return <HomePage refreshKey={refreshKey} onRefresh={handleRefresh} />;
+    }
+  };
+
+  return (
+    <DatabaseProvider>
+      <div className="dashboard">
+        {currentPage === 0 ? (
+          <div className={`main-content ${isTransitioning ? 'transitioning' : ''}`}>
+            {renderCurrentPage()}
+          </div>
+        ) : (
+          <div className={`page-content ${isTransitioning ? 'transitioning' : ''}`}>
+            {renderCurrentPage()}
+          </div>
+        )}
+
+        {selectedProjectId === null && (
+          <Navigation currentPage={currentPage} onPageChange={handlePageChange} />
+        )}
+      </div>
+    </DatabaseProvider>
   );
 }

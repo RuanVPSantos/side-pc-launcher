@@ -1,0 +1,55 @@
+/* ========================================
+   WIDGETS BASE STYLES
+   ======================================== */
+
+/* Widget Base */
+.widget {
+    border: 1px solid var(--border-primary);
+    background: var(--bg-secondary);
+    padding: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    border-radius: 2px;
+    height: var(--widget-height);
+    min-height: var(--widget-min-height);
+    max-height: var(--widget-max-height);
+    width: var(--widget-width);
+    overflow: hidden;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.widget::-webkit-scrollbar {
+    display: none !important;
+}
+
+/* Utility Classes para controlar tamanho dos widgets */
+.widget-small {
+    min-height: 150px;
+}
+
+.widget-medium {
+    min-height: 250px;
+}
+
+.widget-tall {
+    min-height: 350px;
+}
+
+.widget-span-2 {
+    grid-column: span 2;
+}
+
+.widget-span-3 {
+    grid-column: span 3;
+}
+
+.widget-title {
+    font-size: var(--font-size-sm);
+    color: var(--color-primary);
+    letter-spacing: var(--letter-spacing-tight);
+    border-bottom: 1px solid var(--border-primary);
+    padding-bottom: var(--spacing-sm);
+    flex-shrink: 0;
+}

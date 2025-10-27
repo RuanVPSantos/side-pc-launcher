@@ -5,6 +5,25 @@ import { promisify } from 'node:util';
 import { readdir, readFile, writeFile, mkdir, copyFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import started from 'electron-squirrel-startup';
+import { setupDatabaseIPC } from './main/database';
+
+// Capturar erros não tratados
+process.on('uncaughtException', (error) => {
+  console.error('❌ ERRO NÃO TRATADO:', error);
+  console.error('Stack:', error.stack);
+  // Escrever no arquivo também
+  require('fs').appendFileSync('/tmp/launcher-error.log', `UNCAUGHT: ${error.message}\n${error.stack}\n\n`);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('❌ PROMISE REJEITADA:', reason);
+  console.error('Promise:', promise);
+  // Escrever no arquivo também
+  require('fs').appendFileSync('/tmp/launcher-error.log', `REJECTION: ${reason}\n\n`);
+});
+
+console.log('🚀 Iniciando aplicação Electron...');
+require('fs').appendFileSync('/tmp/launcher-error.log', `🚀 Iniciando aplicação Electron...\n`);
 
 const execAsync = promisify(exec);
 
@@ -122,7 +141,7 @@ if (started) {
   app.quit();
 }
 
-const createWindow = () => {
+const createWindow = async () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 1400,
@@ -131,18 +150,35 @@ const createWindow = () => {
     transparent: true,
     resizable: true,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: app.isPackaged
+        ? path.join(__dirname, 'preload.js')
+        : path.join(process.cwd(), '.vite/build/preload.js'),
       contextIsolation: true,
       nodeIntegration: false,
     },
   });
 
   // and load the index.html of the app.
-  if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-    mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
+  const isProduction = app.isPackaged;
+
+  if (!isProduction) {
+    // Try to load from dev server first
+    const devServerUrl = process.env.ELECTRON_RENDERER_URL || 'http://localhost:5173';
+    console.log('🌐 Loading from dev server:', devServerUrl);
+
+    try {
+      await mainWindow.loadURL(devServerUrl);
+      // mainWindow.webContents.openDevTools(); // Temporário para debug
+    } catch (error) {
+      console.error('❌ Failed to load dev server, trying built files:', error);
+      // Fallback to built files
+      mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
+    }
   } else {
+    // In production, load from the file system
+    console.log('📁 Loading from built files');
     mainWindow.loadFile(
-      path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`),
+      path.join(__dirname, '../renderer/index.html')
     );
   }
 };
@@ -151,8 +187,43 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(async () => {
-  await initUserConfig();
-  createWindow();
+  try {
+    // Initialize user config first
+    console.log('🔧 Initializing user config...');
+    await initUserConfig();
+
+    // Create the main window first
+    console.log('🚀 Creating main window...');
+    await createWindow();
+
+    // Initialize database after window is created
+    console.log('🔧 Initializing database...');
+    try {
+      // Set PRISMA_QUERY_ENGINE_LIBRARY for packaged app
+      if (app.isPackaged) {
+        process.env.PRISMA_QUERY_ENGINE_LIBRARY = path.join(
+          process.resourcesPath,
+          'app.asar.unpacked',
+          'node_modules',
+          '@prisma',
+          'client'
+        );
+      }
+
+      const DatabaseService = await import('./data/database');
+      await DatabaseService.default.initialize();
+
+      // Setup database IPC handlers
+      console.log('🔧 Setting up database IPC handlers...');
+      setupDatabaseIPC();
+    } catch (error) {
+      console.error('❌ Database initialization failed, but continuing:', error);
+      // Não fazer quit - deixar a aplicação funcionar sem banco
+    }
+  } catch (error) {
+    console.error('❌ Failed to initialize application:', error);
+    app.quit();
+  }
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -160,15 +231,22 @@ app.whenReady().then(async () => {
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    app.quit();
+    try {
+      app.quit();
+      createWindow();
+    } catch (error) {
+      console.error('❌ Failed to initialize application:', error);
+      app.quit();
+      return;
+    }
   }
 });
 
-app.on('activate', () => {
+app.on('activate', async () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
+    await createWindow();
   }
 });
 
@@ -353,10 +431,16 @@ ipcMain.handle('static:get', async (_, filePath: string) => {
   }
 });
 
-// Open apps
-ipcMain.handle('app:open', async (_, appName: string) => {
+ipcMain.handle('app:open', async (_, appNameOrLink: string) => {
   try {
-    switch (appName) {
+    // 1️⃣ Se for um link completo (http ou https), abre direto no navegador
+    if (/^https?:\/\//i.test(appNameOrLink)) {
+      await shell.openExternal(appNameOrLink);
+      return { success: true };
+    }
+
+    // 2️⃣ Caso contrário, trata como nome de app
+    switch (appNameOrLink) {
       case 'google':
         await shell.openExternal('https://www.google.com');
         break;
@@ -367,7 +451,6 @@ ipcMain.handle('app:open', async (_, appName: string) => {
         await shell.openExternal('https://web.whatsapp.com');
         break;
       case 'spotify':
-        // Try to open Spotify app, fallback to web
         try {
           await execAsync('spotify 2>/dev/null || xdg-open spotify: 2>/dev/null');
         } catch {
@@ -375,10 +458,22 @@ ipcMain.handle('app:open', async (_, appName: string) => {
         }
         break;
       default:
-        return { success: false, error: 'Unknown app' };
+        return { success: false, error: 'Unknown app or invalid link' };
     }
+
     return { success: true };
   } catch (error) {
     return { success: false, error: String(error) };
+  }
+});
+
+
+ipcMain.handle('system:openUrl', async (event, url) => {
+  try {
+    await shell.openExternal(url);
+    return { success: true };
+  } catch (error: any) {
+    console.error('Erro ao abrir link externo:', error);
+    return { success: false, error: error.message };
   }
 });

@@ -1,0 +1,19 @@
+/* ========================================
+   MATRIX WIDGET
+   ======================================== */
+
+/* Matrix Widget - Responsivo */
+.matrix-widget {
+    min-height: clamp(15.625rem, 25vh, 18.75rem);
+    /* ~250px responsivo */
+}
+
+.matrix-canvas {
+    width: 100%;
+    flex: 1;
+    min-height: clamp(12.5rem, 20vh, 15rem);
+    /* ~200px responsivo */
+    background: var(--bg-dark);
+    border: 1px solid var(--border-primary);
+    display: block;
+}

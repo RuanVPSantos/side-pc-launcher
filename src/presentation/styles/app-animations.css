@@ -1,0 +1,233 @@
+/* Animações de transição entre páginas */
+.main-content.transitioning,
+.page-content.transitioning {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+/* Container para páginas com scroll */
+.page-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: var(--transition-normal);
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.page-content::-webkit-scrollbar {
+    display: none !important;
+}
+
+/* Animações de entrada para cada página */
+.projects-page,
+.notifications-page,
+.home-page {
+    animation: pageSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes pageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animação para os cards de projeto */
+.project-card {
+    animation: cardFadeIn 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+.project-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.project-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.project-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.project-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+/* Animação para as notificações */
+.notification-item {
+    animation: notificationSlideIn 0.4s ease-out;
+    animation-fill-mode: both;
+}
+
+.notification-item:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.notification-item:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.notification-item:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.notification-item:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.notification-item:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+/* Animação para estatísticas */
+.stat-item {
+    animation: statPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation-fill-mode: both;
+}
+
+.projects-stats .stat-item:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.projects-stats .stat-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.projects-stats .stat-item:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.notifications-stats .stat-item:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.notifications-stats .stat-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+@keyframes statPop {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Animação para botões de ação */
+.action-btn {
+    animation: buttonSlideUp 0.4s ease-out;
+    animation-fill-mode: both;
+}
+
+.action-btn:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.action-btn:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+@keyframes buttonSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animação para títulos de página */
+.page-header h1 {
+    animation: titleGlow 0.6s ease-out;
+}
+
+@keyframes titleGlow {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+        text-shadow: none;
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        text-shadow: 0 0 20px var(--shadow-primary);
+    }
+}
+
+/* Animações para widgets da HomePage */
+.widget {
+    animation: widgetFadeIn 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+.widget:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.widget:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.widget:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.widget:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.widget:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.widget:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+.widget:nth-child(7) {
+    animation-delay: 0.7s;
+}
+
+@keyframes widgetFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Animação para o header da HomePage */
+.main-info {
+    animation: headerSlideDown 0.5s ease-out;
+}
+
+@keyframes headerSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

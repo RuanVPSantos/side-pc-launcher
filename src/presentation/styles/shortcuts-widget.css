@@ -1,0 +1,62 @@
+/* ========================================
+   SHORTCUTS WIDGET
+   ======================================== */
+
+/* Shortcuts Widget */
+.shortcuts-widget {
+    display: flex;
+    flex-direction: column;
+    min-height: 250px;
+}
+
+.app-shortcuts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    flex: 1;
+}
+
+.shortcut-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--spacing-xl);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border: 1px solid var(--border-secondary);
+    background: var(--bg-overlay);
+    font-size: var(--font-size-md);
+    color: var(--color-primary);
+    transition: var(--transition-smooth);
+    font-family: var(--font-family);
+    letter-spacing: var(--letter-spacing-tight);
+    width: 100%;
+    text-align: left;
+    font-weight: bold;
+}
+
+.shortcut-item:hover {
+    border-color: var(--border-primary);
+    background: var(--alpha-primary-15);
+    transform: translateX(5px);
+    box-shadow: var(--shadow-primary-strong);
+}
+
+.shortcut-item:hover .shortcut-icon {
+    filter: var(--filter-white-icon);
+}
+
+.shortcut-item:active {
+    transform: translateX(3px);
+    box-shadow: var(--shadow-primary);
+}
+
+.shortcut-icon {
+    width: var(--icon-sm);
+    height: var(--icon-sm);
+    filter: var(--filter-primary-icon);
+    transition: var(--transition-smooth);
+}
+
+.shortcut-label {
+    flex: 1;
+}

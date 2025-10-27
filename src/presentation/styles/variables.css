@@ -1,0 +1,170 @@
+/* ========================================
+   CSS VARIABLES - TEMA CENTRALIZADO
+   ======================================== */
+
+:root {
+  /* ========================================
+     CORES PRINCIPAIS
+     ======================================== */
+  
+  /* Azul ciano - cor principal do sistema */
+  --color-primary: #00d9ff;
+  --color-primary-dark: #00a8cc;
+  --color-primary-light: #00ffff;
+  --color-primary-hover: #00b8d4;
+  
+  /* Vermelho - alertas e perigo */
+  --color-danger: #ff4444;
+  --color-warning: #ff9500;
+  --color-error: #ff0064;
+  
+  /* Laranja/Vermelho - CPU e temperatura */
+  --color-accent: #ff6b4a;
+  --color-accent-light: #ff6b6b;
+  
+  /* Preto e cinza - backgrounds */
+  --bg-primary: rgba(0, 0, 0, 0.95);
+  --bg-secondary: rgba(0, 0, 0, 0.8);
+  --bg-tertiary: rgba(0, 0, 0, 0.5);
+  --bg-modal: rgba(0, 0, 0, 0.9);
+  --bg-overlay: rgba(0, 0, 0, 0.3);
+  --bg-dark: #0a0a0a;
+  --bg-medium: #1a1a1a;
+  --bg-light: #2a2a2a;
+  
+  /* Branco e cinza - textos */
+  --text-primary: #fff;
+  --text-secondary: #888;
+  --text-muted: rgba(0, 217, 255, 0.3);
+  
+  /* Bordas e divisores */
+  --border-primary: #00d9ff;
+  --border-secondary: rgba(0, 217, 255, 0.3);
+  --border-light: rgba(0, 217, 255, 0.2);
+  --border-hover: #00ffff;
+  
+  /* Estados de transparência */
+  --alpha-primary-05: rgba(0, 217, 255, 0.05);
+  --alpha-primary-10: rgba(0, 217, 255, 0.1);
+  --alpha-primary-15: rgba(0, 217, 255, 0.15);
+  --alpha-primary-20: rgba(0, 217, 255, 0.2);
+  --alpha-primary-30: rgba(0, 217, 255, 0.3);
+  --alpha-primary-40: rgba(0, 217, 255, 0.4);
+  --alpha-primary-50: rgba(0, 217, 255, 0.5);
+  --alpha-primary-60: rgba(0, 217, 255, 0.6);
+  --alpha-black-70: rgba(0, 0, 0, 0.7);
+  
+  /* ========================================
+     GRADIENTES
+     ======================================== */
+  
+  --gradient-primary: linear-gradient(135deg, #00d9ff, #00a8cc);
+  --gradient-primary-light: linear-gradient(135deg, #00ffff, #00d9ff);
+  --gradient-temperature: linear-gradient(90deg, #ff4444, #00d9ff);
+  --gradient-equalizer: linear-gradient(to top, #00d9ff, #00a8cc);
+  --gradient-shimmer: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.3), transparent);
+  
+  /* ========================================
+     SOMBRAS
+     ======================================== */
+  
+  --shadow-primary: 0 0 10px rgba(0, 217, 255, 0.3);
+  --shadow-primary-strong: 0 0 15px rgba(0, 217, 255, 0.3);
+  --shadow-primary-glow: 0 0 25px rgba(0, 217, 255, 0.6), 0 0 50px rgba(0, 217, 255, 0.3);
+  --shadow-widget: 0 0 15px rgba(0, 217, 255, 0.2);
+  --shadow-modal: 0 0 30px rgba(0, 217, 255, 0.5);
+  --shadow-text-primary: 0 0 10px rgba(0, 217, 255, 0.5);
+  --shadow-text-white: 0 0 15px rgba(255, 255, 255, 0.8);
+  --shadow-text-danger: 0 0 10px rgba(255, 107, 107, 0.5);
+  --shadow-text-accent: 0 0 5px rgba(255, 149, 0, 0.5);
+  --shadow-text-error: 0 0 5px rgba(255, 68, 68, 0.5);
+  --shadow-text-location: 0 0 20px rgba(0, 217, 255, 0.8);
+  --shadow-text-control: 0 0 5px rgba(0, 217, 255, 0.5);
+  
+  /* ========================================
+     TIPOGRAFIA
+     ======================================== */
+  
+  --font-family: 'Courier New', monospace;
+  --font-size-xs: 0.5625rem;
+  --font-size-sm: 0.625rem;
+  --font-size-base: 0.6875rem;
+  --font-size-md: 0.75rem;
+  --font-size-lg: 0.8125rem;
+  --font-size-xl: 1rem;
+  --font-size-2xl: 1.125rem;
+  --font-size-3xl: 1.25rem;
+  --font-size-4xl: 1.5rem;
+  --font-size-5xl: 1.5625rem;
+  --font-size-6xl: 2rem;
+  
+  --letter-spacing-tight: 0.0625rem;
+  --letter-spacing-normal: 0.125rem;
+  --letter-spacing-wide: 0.1875rem;
+  
+  /* ========================================
+     ESPAÇAMENTOS
+     ======================================== */
+  
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 0.625rem;
+  --spacing-lg: 0.75rem;
+  --spacing-xl: 1rem;
+  --spacing-2xl: 1.25rem;
+  --spacing-3xl: 1.5rem;
+  --spacing-4xl: 2.5rem;
+  --spacing-5xl: 3rem;
+  
+  /* ========================================
+     DIMENSÕES DE WIDGETS
+     ======================================== */
+  
+  --widget-width: 20rem;
+  --widget-height: 24rem;
+  --widget-min-height: 24rem;
+  --widget-max-height: 24rem;
+  
+  --hexagon-width: 9.375rem;
+  --hexagon-height: 8.4375rem;
+  
+  --cpu-width: 5.625rem;
+  --cpu-height: 5.625rem;
+  
+  --icon-sm: 1.5rem;
+  --icon-md: 1.875rem;
+  --icon-lg: 2rem;
+  
+  /* ========================================
+     TRANSIÇÕES
+     ======================================== */
+  
+  --transition-fast: all 0.1s ease-out;
+  --transition-normal: all 0.2s;
+  --transition-smooth: all 0.3s;
+  --transition-slow: all 0.3s ease;
+  --transition-opacity: opacity 1s ease-in-out;
+  --transition-dash-offset: stroke-dashoffset 0.5s ease;
+  --transition-shimmer: left 0.5s;
+  
+  /* ========================================
+     Z-INDEX LAYERS
+     ======================================== */
+  
+  --z-index-base: 0;
+  --z-index-overlay: 1;
+  --z-index-dropdown: 2;
+  --z-index-tooltip: 3;
+  --z-index-modal: 1000;
+  
+  /* ========================================
+     BREAKPOINTS
+     ======================================== */
+  
+  --breakpoint-xs: 320px;
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}

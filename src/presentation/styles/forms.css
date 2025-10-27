@@ -1,0 +1,426 @@
+/* ========================================
+   FORMULÁRIOS
+   ======================================== */
+
+.project-form,
+.notification-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--text-accent);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    padding: 12px;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-primary) !important;
+    border-radius: var(--radius-sm);
+    color: var(--text-primary) !important;
+    font-size: 0.9rem;
+    font-family: inherit;
+    font-weight: 500;
+    transition: var(--transition-normal);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none !important;
+    border-color: var(--border-hover) !important;
+    box-shadow: 0 0 10px var(--shadow-primary) !important;
+    background: var(--bg-hover) !important;
+}
+
+/* Estilizar selects dos formulários */
+.form-group select {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300d9ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    background-size: 16px !important;
+    padding-right: 40px !important;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing);
+}
+
+.form-group select option {
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    padding: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing);
+}
+
+.form-group select option:hover,
+.form-group select option:checked {
+    background: var(--primary-cyan-alpha-20) !important;
+    color: var(--text-accent) !important;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-group select {
+    cursor: pointer;
+}
+
+.form-group select option {
+    background: var(--bg-overlay);
+    color: var(--text-primary);
+}
+
+/* Tecnologias */
+.tech-input-container {
+    display: flex;
+    gap: 10px;
+}
+
+.tech-input-container input {
+    flex: 1;
+}
+
+.add-tech-btn {
+    padding: 12px 20px;
+    background: var(--primary-cyan-alpha-20);
+    border: 1px solid var(--text-accent);
+    color: var(--text-accent);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.add-tech-btn:hover {
+    background: var(--primary-cyan-alpha-30);
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.tech-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: var(--primary-cyan-alpha-20);
+    border: 1px solid var(--primary-cyan-alpha-50);
+    color: var(--text-accent);
+    font-size: 0.8rem;
+    border-radius: var(--radius-sm);
+}
+
+.remove-tech {
+    background: none;
+    border: none;
+    color: var(--status-error);
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1;
+    padding: 0;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-tech:hover {
+    color: #ff6666;
+}
+
+/* Ações do formulário */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--primary-cyan-alpha-20);
+}
+
+.btn-delete {
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    transition: var(--transition-normal);
+    min-width: 120px;
+    background: transparent;
+    color: var(--text-accent);
+    border: 1px solid var(--text-accent);
+}
+
+.btn-delete:hover:not(:disabled) {
+    background: var(--primary-cyan-alpha-10);
+}
+
+.btn-delete:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-confirm {
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    transition: var(--transition-normal);
+    min-width: 120px;
+    background: var(--text-accent);
+    color: var(--bg-primary);
+}
+
+.btn-confirm:hover:not(:disabled) {
+    background: var(--primary-cyan-dark);
+    box-shadow: 0 0 15px var(--primary-cyan-alpha-50);
+}
+
+.btn-confirm:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-success {
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    transition: var(--transition-normal);
+    min-width: 120px;
+    background: var(--status-success);
+    color: var(--bg-primary);
+}
+
+.btn-success:hover:not(:disabled) {
+    background: var(--status-success-dark);
+    box-shadow: 0 0 15px var(--status-success-alpha-50);
+}
+
+.btn-success:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: var(--status-success);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+    }
+
+    .tech-input-container {
+        flex-direction: column;
+    }
+}
+
+/* ========================================
+   SMART NOTIFICATION FORM
+   ======================================== */
+
+.smart-notification-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.form-section {
+    border: 1px solid var(--primary-cyan-alpha-20);
+    padding: 20px;
+    background: var(--bg-input);
+}
+
+.form-section h4 {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--text-accent);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    margin: 0 0 15px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--primary-cyan-alpha-30);
+}
+
+/* Weekdays Selector */
+.weekdays-selector {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.weekday-btn {
+    padding: 8px 12px;
+    background: var(--bg-input);
+    border: 1px solid var(--primary-cyan-alpha-30);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: var(--transition-normal);
+    min-width: 45px;
+}
+
+.weekday-btn:hover {
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+}
+
+.weekday-btn.active {
+    background: var(--primary-cyan-alpha-20);
+    border-color: var(--text-accent);
+    color: var(--text-accent);
+}
+
+/* Tags */
+.tag-input-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.tag-input-container input {
+    flex: 1;
+}
+
+.add-tag-btn {
+    padding: 12px 20px;
+    background: var(--primary-cyan-alpha-20);
+    border: 1px solid var(--text-accent);
+    color: var(--text-accent);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.add-tag-btn:hover {
+    background: var(--primary-cyan-alpha-30);
+}
+
+.tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: var(--primary-cyan-alpha-20);
+    border: 1px solid var(--primary-cyan-alpha-50);
+    color: var(--text-accent);
+    font-size: 0.8rem;
+    border-radius: var(--radius-sm);
+}
+
+.remove-tag {
+    background: none;
+    border: none;
+    color: var(--status-error);
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1;
+    padding: 0;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-tag:hover {
+    color: #ff6666;
+}
+
+/* Priority colors */
+select[value="1"] {
+    color: #888888;
+}
+
+select[value="2"] {
+    color: #ff9500;
+}
+
+select[value="3"] {
+    color: var(--status-error);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .smart-notification-form {
+        max-height: 80vh;
+    }
+
+    .form-section {
+        padding: 15px;
+    }
+
+    .weekdays-selector {
+        justify-content: center;
+    }
+
+    .weekday-btn {
+        min-width: 40px;
+        padding: 6px 8px;
+    }
+
+    .tag-input-container {
+        flex-direction: column;
+    }
+}

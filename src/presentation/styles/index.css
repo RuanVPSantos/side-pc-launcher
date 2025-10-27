@@ -1,0 +1,175 @@
+/* @import './theme.css'; */
+@import './variables-complete.css';
+@import './widgets.css';
+@import './header.css';
+@import './modal.css';
+
+/* ========================================
+   LAUNCHER - BASE STYLES & GRID
+   ========================================
+   
+   Este arquivo contém apenas:
+   - Reset e estilos base
+   - Layout do dashboard
+   - Grid container e controle de tamanho
+   - Scrollbar
+   
+   Outros estilos estão em:
+   - header.css: Header e relógio
+   - widgets.css: Todos os widgets
+   - modal.css: Modal de configurações
+======================================== */
+
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background: transparent;
+  color: var(--text-primary);
+  overflow: hidden;
+  -webkit-app-region: drag;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+body::-webkit-scrollbar {
+  display: none !important;
+}
+
+button {
+  -webkit-app-region: no-drag;
+  cursor: pointer;
+}
+
+/* React root container */
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* App component - same as dashboard */
+.app,
+.dashboard {
+  width: 100vw;
+  height: 100vh;
+  padding: var(--spacing-xl);
+  padding-bottom: 0;
+  /* Remove padding bottom para o footer */
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  overflow: hidden;
+}
+
+/* React layout containers */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-app-region: no-drag;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-app-region: no-drag;
+}
+
+.center-panel {
+  flex: 1;
+  overflow: auto;
+}
+
+/* ========================================
+   GRID CONTAINER & WIDGET SIZING
+   ========================================
+   Para controlar o tamanho dos cards:
+   
+   1. Tamanho mínimo dos cards:
+      - Altere o valor 280px em minmax(280px, 1fr)
+      - Valores menores = mais cards por linha
+      - Valores maiores = menos cards por linha
+   
+   2. Tamanho específico de um widget:
+      - Adicione classes no HTML:
+        .widget-small, .widget-medium, .widget-tall
+        .widget-span-2, .widget-span-3
+   
+   3. Altura dos widgets:
+      - min-height: 200px (padrão em widgets.css)
+      - Use .widget-tall para widgets maiores
+======================================== */
+
+/* Support both old and new class names */
+.widgets-container,
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 20em);
+  /* largura fixa igual ao widget */
+  gap: var(--spacing-4xl);
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-inline: var(--spacing-sm);
+  padding-bottom: 100px;
+  /* Espaço para o footer */
+  /* padding igual dos dois lados */
+  -webkit-app-region: no-drag;
+  align-content: start;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+/* ========================================
+   HIDE ALL SCROLLBARS
+   ======================================== */
+
+/* Hide scrollbars globally */
+*,
+*::before,
+*::after {
+  scrollbar-width: none !important;
+  /* Firefox */
+  -ms-overflow-style: none !important;
+  /* Internet Explorer 10+ */
+}
+
+*::-webkit-scrollbar,
+*::before::-webkit-scrollbar,
+*::after::-webkit-scrollbar {
+  display: none !important;
+  /* WebKit */
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Specific scrollbar hiding */
+.widgets-container::-webkit-scrollbar,
+.grid-container::-webkit-scrollbar,
+body::-webkit-scrollbar,
+html::-webkit-scrollbar {
+  display: none !important;
+}
+
+.widgets-container,
+.grid-container,
+body,
+html {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}

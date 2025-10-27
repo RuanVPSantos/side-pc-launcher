@@ -1,0 +1,153 @@
+.navigation {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-input);
+    border: 1px solid var(--border-hover);
+    border-radius: 30px;
+    backdrop-filter: blur(15px);
+    z-index: 1000;
+    font-family: var(--font-mono);
+    width: 20rem;
+    max-width: 90vw;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.1);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 8px;
+    gap: 2px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px;
+    background: transparent;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    white-space: nowrap;
+    min-width: 48px;
+    min-height: 48px;
+}
+
+.nav-item.active {
+    background: #00d9ff;
+    color: #0a0a0a;
+    box-shadow: 0 4px 16px rgba(0, 217, 255, 0.3);
+    padding: 12px 20px;
+    min-width: auto;
+    animation: expandActive 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item.active .nav-icon {
+    color: #0a0a0a;
+}
+
+.nav-item.active .nav-label {
+    color: #0a0a0a;
+    font-weight: 700;
+}
+
+.nav-icon {
+    font-size: 1.3rem;
+    color: #00d9ff;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 0 4px rgba(0, 217, 255, 0.3));
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.nav-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #00d9ff;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Mostrar label apenas quando ativo */
+.nav-item.active .nav-label {
+    opacity: 1;
+    width: auto;
+    margin-left: 6px;
+}
+
+/* Animações */
+.navigation {
+    animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateX(-50%) translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes expandActive {
+    from {
+        min-width: 48px;
+        padding: 12px;
+    }
+
+    to {
+        min-width: auto;
+        padding: 12px 20px;
+    }
+}
+
+/* Efeito de glow no hover */
+.nav-item:hover .nav-icon {
+    filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.6));
+    transform: scale(1.1);
+}
+
+/* Efeito especial para o item ativo */
+.nav-item.active::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #00d9ff, transparent, #00d9ff);
+    border-radius: 27px;
+    z-index: -1;
+    opacity: 0.3;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(1.02);
+    }
+}
